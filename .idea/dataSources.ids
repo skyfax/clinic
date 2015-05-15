@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - clinic@localhost" uuid="ded13437-f39d-43bf-9af1-dd6a6ca52f3b">
+    <database-info product="MySQL" version="5.6.23" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.34 ( Revision: jess.balint@oracle.com-20141014163213-wqbwpf1ok2kvo1om )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="clinic"/>
+    <table name="consultation" schema="" catalog="clinic" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="patientId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="doctorId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="description" sqlType="VARCHAR" precision="300" scale="0" nullable="true" jdbcType="12"/>
+      <column name="consultationDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="closed" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <column name="hasArrive" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="doctorFK" columns="doctorId" ref-table="user" ref-schema="" ref-catalog="clinic" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <foreign-key name="patientFK" columns="patientId" ref-table="user" ref-schema="" ref-catalog="clinic" ref-columns="id" update-rule="0" delete-rule="0" deferrability="2"/>
+      <index name="doctorFK_idx" unique="false" columns="doctorId"/>
+      <index name="patientFK_idx" unique="false" columns="patientId"/>
+    </table>
+    <table name="role" schema="" catalog="clinic" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="roleFk" table="user" schema="" catalog="clinic" columns="roleId"/>
+      <index name="name_UNIQUE" unique="true" columns="name"/>
+    </table>
+    <table name="user" schema="" catalog="clinic" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cnp" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="birthDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="address" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="roleId" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="icn" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="roleFk" columns="roleId" ref-table="role" ref-schema="" ref-catalog="clinic" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="doctorFK" table="consultation" schema="" catalog="clinic" columns="doctorId"/>
+      <exported-key name="patientFK" table="consultation" schema="" catalog="clinic" columns="patientId"/>
+      <index name="cnp_UNIQUE" unique="true" columns="cnp"/>
+      <index name="username_UNIQUE" unique="true" columns="username"/>
+      <index name="roleFk_idx" unique="false" columns="roleId"/>
+    </table>
+  </data-source>
+</component>
